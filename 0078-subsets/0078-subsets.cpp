@@ -10,7 +10,7 @@ public:
         // case 2: included
         temp.push_back(nums[index]);
         subsequence(nums, index+1, size, ans, temp);
-        temp.pop_back(); // to save the space complexity
+        temp.pop_back();
     }
 
     vector<vector<int>> subsets(vector<int>& nums) {
