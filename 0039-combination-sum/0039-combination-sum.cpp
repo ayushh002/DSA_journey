@@ -8,10 +8,10 @@ public:
 
         if(index==candidates.size() || target<0) return;
 
+        findCombination(ans, candidates, temp, index+1, target);
         temp.push_back(candidates[index]);
         findCombination(ans, candidates, temp, index, target-candidates[index]);
         temp.pop_back();
-        findCombination(ans, candidates, temp, index+1, target);
 
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
