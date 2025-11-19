@@ -3,11 +3,11 @@ public:
     int solve(int n, vector<int>& nums){
         if(n==1) return nums[0];
         vector<int> newNums;
-        for(int i = 0; i<n; i++){
-            if(i<n/2 && i%2==0){
+        for(int i = 0; i<n/2; i++){
+            if(i%2==0){
                 newNums.push_back(min(nums[2 * i], nums[2 * i + 1]));
             }
-            else if(i<n/2){
+            else{
                 newNums.push_back(max(nums[2 * i], nums[2 * i + 1]));
             }
         }
