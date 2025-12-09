@@ -9,9 +9,15 @@ public:
         return dp[n] = max(nums[n-1]+solve(nums, n-2, dp), solve(nums, n-1, dp));
     }
     int rob(vector<int>& nums) {
-        // recursive + memoization
+        // tabulation - iterative
         int n = nums.size();
-        vector<int> dp(n+1, -1);
-        return solve(nums, n, dp);
+        vector<int> dp;
+        dp.push_back(0);
+        dp.push_back(nums[0]);
+        for(int i = 2; i<=n; i++){
+            int next = max(nums[i-1]+dp[i-2], dp[i-1]);
+            dp.push_back(next);
+        }
+        return dp[n];
     }
 };
