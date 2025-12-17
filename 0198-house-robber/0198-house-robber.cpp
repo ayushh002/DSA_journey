@@ -1,16 +1,17 @@
 class Solution {
 public:
-    int rob(vector<int>& nums) {
-        // tabulation - iterative
-        int n = nums.size();
-        if(n == 1) return nums[0];
+    int solve(vector<int>& nums, int n, vector<int>& dp){
+        if(n==0) return 0;
+        if(n==1) return nums[0];
 
-        int dp1 = 0, dp2 = nums[0], dp3 = nums[0];
-        for(int i = 2; i<=n; i++){
-            dp3 = max(nums[i-1]+dp1, dp2);
-            dp1 = dp2;
-            dp2 = dp3;
-        }
-        return dp3;
+        if(dp[n] != -1) return dp[n];
+
+        return dp[n] = max(nums[n-1]+solve(nums, n-2, dp), solve(nums, n-1, dp));
+    }
+    int rob(vector<int>& nums) {
+        // recursive + memoization
+        int n = nums.size();
+        vector<int> dp(n+1, -1);
+        return solve(nums, n, dp);
     }
 };
