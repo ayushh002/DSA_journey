@@ -31,7 +31,7 @@ public:
         ListNode *prev = head;
         ListNode *curr = head->next;
 
-        while(curr->next){
+        while(curr){
             if(curr->val<maxVal){
                 prev->next = curr->next;
                 curr = curr->next;
