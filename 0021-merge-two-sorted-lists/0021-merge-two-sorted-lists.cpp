@@ -11,15 +11,13 @@
 class Solution {
 public:
     // Brute Force O(n^2)
-    void merge(ListNode*& merged, int val){
-        if(!merged){
-            merged = new ListNode(val);
+    void merge(ListNode*& head, ListNode*& tail, int val){
+        if(!head){
+            head = tail = new ListNode(val);
             return;
         }
-        ListNode* temp = merged;
-        while(temp->next)
-            temp = temp->next;
-        temp->next = new ListNode(val);
+        tail->next = new ListNode(val);
+        tail = tail->next;
     }
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         if(!list1 && !list2) return NULL;
@@ -27,29 +25,23 @@ public:
         if(!list1) return list2;
         if(!list2) return list1;
 
-        ListNode *mergedList = NULL;
+        ListNode *head = NULL, *tail = NULL;
 
         ListNode *first = list1, *second = list2;
         while(first && second){
             if(first->val<second->val){
-                merge(mergedList, first->val);
+                merge(head, tail, first->val);
                 first = first->next;
             }
             else{
-                merge(mergedList, second->val);
+                merge(head, tail, second->val);
                 second = second->next;
             }
         }
 
-        while(first){
-            merge(mergedList, first->val);
-            first = first->next;
-        }
-        while(second){
-            merge(mergedList, second->val);
-            second = second->next;
-        }
+        // Add remaining nodes
+        tail->next = first ? first : second;
 
-        return mergedList;
+        return head;
     }
 };
