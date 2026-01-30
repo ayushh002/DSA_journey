@@ -10,38 +10,34 @@
  */
 class Solution {
 public:
-    // Basic method: O(n+m) time and space as we are creating node uptil (n+m).
-    void merge(ListNode*& head, ListNode*& tail, int val){
-        if(!head){
-            head = tail = new ListNode(val);
-            return;
-        }
-        tail->next = new ListNode(val);
-        tail = tail->next;
-    }
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        if(!list1 && !list2) return NULL;
+    // Optimized: O(1) - space
+    ListNode* mergeTwoLists(ListNode* head1, ListNode* head2) {
+        if(!head1 && !head2) return NULL;
 
-        if(!list1) return list2;
-        if(!list2) return list1;
+        if(!head1) return head2;
+        if(!head2) return head1;
 
-        ListNode *head = NULL, *tail = NULL;
+        ListNode *head = new ListNode(0);
+        ListNode *tail = head;
 
-        ListNode *first = list1, *second = list2;
-        while(first && second){
-            if(first->val<second->val){
-                merge(head, tail, first->val);
-                first = first->next;
+        while(head1 && head2){
+            if(head1->val<=head2->val){
+                tail->next = head1;
+                head1 = head1->next;
+                tail = tail->next;
+                tail->next = NULL;
             }
             else{
-                merge(head, tail, second->val);
-                second = second->next;
+                tail->next = head2;
+                head2 = head2->next;
+                tail = tail->next;
+                tail->next = NULL;
             }
         }
 
         // Add remaining nodes
-        tail->next = first ? first : second;
+        tail->next = head1 ? head1 : head2;
 
-        return head;
+        return head->next;
     }
 };
