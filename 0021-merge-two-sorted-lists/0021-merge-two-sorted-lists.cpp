@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    // Brute Force O(n^2)
+    // Basic method: O(n+m) time and space as we are creating node uptil (n+m).
     void merge(ListNode*& head, ListNode*& tail, int val){
         if(!head){
             head = tail = new ListNode(val);
