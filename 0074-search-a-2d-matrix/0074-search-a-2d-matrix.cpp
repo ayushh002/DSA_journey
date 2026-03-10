@@ -5,9 +5,14 @@ public:
         int n = matrix.size(), m = matrix[0].size();
         for(int i = 0; i<n; i++){
             if(target>=matrix[i][0] && target<=matrix[i][m-1]){
-                for(int j = 0; j<m; j++){
-                    if(target==matrix[i][j])
+                int start = 0, end = m-1;
+                while(start<=end){
+                    int mid = start + (end-start)/2;
+                    if(matrix[i][mid]==target)
                         return true;
+                    else if(matrix[i][mid]<target)
+                        start = mid+1;
+                    else end = mid-1;
                 }
             }
         }
