@@ -14,7 +14,7 @@ public:
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
         // Using Deque - Avoid Reversal
         deque<vector<int>> res;
-        if(!root) return res;
+        if(!root) return {};
         
         queue<TreeNode*> q;
         q.push(root);
