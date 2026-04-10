@@ -12,7 +12,8 @@
 class Solution {
 public:
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
-        vector<vector<int>> res;
+        // Using Deque - Avoid Reversal
+        deque<vector<int>> res;
         if(!root) return res;
         
         queue<TreeNode*> q;
@@ -31,8 +32,8 @@ public:
                 if(node->left) q.push(node->left);
                 if(node->right) q.push(node->right);
             }
-            res.insert(res.begin(), level);
+            res.push_front(level); // O(1)
         }
-        return res;
+        return vector<vector<int>>(res.begin(), res.end());
     }
 };
