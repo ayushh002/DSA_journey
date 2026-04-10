@@ -31,10 +31,8 @@ public:
                 if(node->left) q.push(node->left);
                 if(node->right) q.push(node->right);
             }
-            res.push_back(level);
+            res.insert(res.begin(), level);
         }
-        reverse(res.begin(), res.end());
-        
         return res;
     }
 };
