@@ -1,16 +1,19 @@
 class Solution {
 public:
-    bool solve(TreeNode* root, long long minVal, long long maxVal){
-        if(!root) return true;
-
-        if(root->val <= minVal || root->val >= maxVal)
-            return false;
-
-        return solve(root->left, minVal, root->val) &&
-               solve(root->right, root->val, maxVal);
+    void inOrder(TreeNode* root, vector<int>& inorder){
+        if(!root) return;
+        inOrder(root->left, inorder);
+        inorder.push_back(root->val);
+        inOrder(root->right, inorder);
     }
 
     bool isValidBST(TreeNode* root) {
-        return solve(root, LLONG_MIN, LLONG_MAX);
+        vector<int> inorder;
+        inOrder(root, inorder);
+        for(int i=0; i<inorder.size()-1; i++){
+            if(inorder[i]>=inorder[i+1])
+                return false;
+        }
+        return true;
     }
 };
