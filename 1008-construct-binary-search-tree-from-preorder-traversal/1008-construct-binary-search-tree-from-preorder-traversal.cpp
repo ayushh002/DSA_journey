@@ -11,23 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* solve(TreeNode* root, int val){
-        if(!root){
-            root=new TreeNode(val);
-            return root;
-        }
+    TreeNode* solve(int& idx, int min, int max, vector<int>& preorder){
+        if(idx==preorder.size())
+            return NULL;
 
-        if(val<root->val)
-            root->left=solve(root->left, val);
-        else
-            root->right=solve(root->right, val);
+        if(preorder[idx]<=min || preorder[idx]>=max)
+            return NULL;
+
+        int val=preorder[idx++];
+        TreeNode* root=new TreeNode(val);
+
+        root->left=solve(idx, min, val, preorder);
+        root->right=solve(idx, val, max, preorder);
         return root;
     }
-    // O(n^2) time
+    // Optimized - O(n) time & space
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        TreeNode* root=NULL;
-        for(int num: preorder)
-            root=solve(root, num);
-        return root;
+        int idx=0;
+        return solve(idx, INT_MIN, INT_MAX, preorder);
     }
 };
